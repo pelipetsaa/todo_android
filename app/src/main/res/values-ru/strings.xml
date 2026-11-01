@@ -1,0 +1,68 @@
+<resources>
+    <string name="app_name">ToDo</string>
+
+    <string name="login_title">Вход</string>
+    <string name="login_subtitle">С возвращением! Войдите, чтобы увидеть свои задачи.</string>
+    <string name="email">Эл. почта</string>
+    <string name="password">Пароль</string>
+    <string name="confirm_password">Повторите пароль</string>
+    <string name="sign_in">Войти</string>
+    <string name="sign_in_with_google">Войти через Google</string>
+    <string name="or">или</string>
+    <string name="no_account">Нет аккаунта? Зарегистрируйтесь</string>
+    <string name="register_title">Регистрация</string>
+    <string name="register_subtitle">Укажите эл. почту и пароль не короче 8 символов.</string>
+    <string name="create_account">Зарегистрироваться</string>
+    <string name="back">Назад</string>
+
+    <string name="todos_title">Мои задачи</string>
+    <string name="logout">Выйти</string>
+    <string name="add_todo">Добавить задачу</string>
+    <string name="period_today">Сегодня</string>
+    <string name="period_week">Неделя</string>
+    <string name="period_month">Месяц</string>
+    <string name="empty_today">На сегодня ничего не запланировано</string>
+    <string name="empty_week">На эту неделю ничего не запланировано</string>
+    <string name="empty_month">На этот месяц ничего не запланировано</string>
+    <string name="empty_hint">Нажмите +, чтобы добавить задачу</string>
+    <string name="retry">Повторить</string>
+
+    <string name="status_todo">К выполнению</string>
+    <string name="status_in_progress">В работе</string>
+    <string name="status_done">Готово</string>
+
+    <string name="new_todo_title">Новая задача</string>
+    <string name="edit_todo_title">Редактирование</string>
+    <string name="field_title">Название</string>
+    <string name="field_description">Описание</string>
+    <string name="field_date">Дата</string>
+    <string name="field_time">Время</string>
+    <string name="field_status">Статус</string>
+    <string name="save">Сохранить</string>
+    <string name="delete">Удалить</string>
+    <string name="cancel">Отмена</string>
+    <string name="ok">ОК</string>
+    <string name="delete_confirm_title">Удалить задачу?</string>
+    <string name="delete_confirm_message">Это действие нельзя отменить.</string>
+
+    <string name="error_network">Нет связи с сервером. Проверьте подключение и попробуйте ещё раз.</string>
+    <string name="error_unauthorized">Сессия истекла. Войдите снова.</string>
+    <string name="error_invalid_credentials">Неверная эл. почта или пароль.</string>
+    <string name="error_google_failed">Не удалось войти через Google. Попробуйте ещё раз.</string>
+    <string name="error_not_found">Эта задача больше не существует.</string>
+    <string name="error_conflict">Такая запись уже существует.</string>
+    <string name="error_email_taken">Аккаунт с этой эл. почтой уже существует.</string>
+    <string name="error_too_many_requests">Слишком много попыток. Подождите минуту и попробуйте снова.</string>
+    <string name="error_validation">Проверьте введённые данные.</string>
+    <string name="error_unknown">Что-то пошло не так. Попробуйте ещё раз.</string>
+
+    <string name="validation_email_blank">Введите эл. почту</string>
+    <string name="validation_email_invalid">Введите корректный адрес эл. почты</string>
+    <string name="validation_password_blank">Введите пароль</string>
+    <string name="validation_password_too_short">Пароль должен быть не короче 8 символов</string>
+    <string name="validation_password_too_long">Пароль должен быть не длиннее 128 символов</string>
+    <string name="validation_password_mismatch">Пароли не совпадают</string>
+    <string name="validation_title_blank">Введите название</string>
+    <string name="validation_title_too_long">Название должно быть не длиннее 200 символов</string>
+    <string name="validation_description_too_long">Описание должно быть не длиннее 2000 символов</string>
+</resources>

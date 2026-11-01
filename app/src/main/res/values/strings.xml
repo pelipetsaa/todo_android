@@ -1,0 +1,68 @@
+<resources>
+    <string name="app_name">ToDo</string>
+
+    <string name="login_title">Sign in</string>
+    <string name="login_subtitle">Welcome back! Sign in to see your todos.</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="confirm_password">Confirm password</string>
+    <string name="sign_in">Sign in</string>
+    <string name="sign_in_with_google">Continue with Google</string>
+    <string name="or">or</string>
+    <string name="no_account">No account yet? Create one</string>
+    <string name="register_title">Create account</string>
+    <string name="register_subtitle">Use your email and a password with at least 8 characters.</string>
+    <string name="create_account">Create account</string>
+    <string name="back">Back</string>
+
+    <string name="todos_title">My todos</string>
+    <string name="logout">Log out</string>
+    <string name="add_todo">Add todo</string>
+    <string name="period_today">Today</string>
+    <string name="period_week">This week</string>
+    <string name="period_month">This month</string>
+    <string name="empty_today">Nothing planned for today</string>
+    <string name="empty_week">Nothing planned for this week</string>
+    <string name="empty_month">Nothing planned for this month</string>
+    <string name="empty_hint">Tap + to add a todo</string>
+    <string name="retry">Retry</string>
+
+    <string name="status_todo">To do</string>
+    <string name="status_in_progress">In progress</string>
+    <string name="status_done">Done</string>
+
+    <string name="new_todo_title">New todo</string>
+    <string name="edit_todo_title">Edit todo</string>
+    <string name="field_title">Title</string>
+    <string name="field_description">Description</string>
+    <string name="field_date">Date</string>
+    <string name="field_time">Time</string>
+    <string name="field_status">Status</string>
+    <string name="save">Save</string>
+    <string name="delete">Delete</string>
+    <string name="cancel">Cancel</string>
+    <string name="ok">OK</string>
+    <string name="delete_confirm_title">Delete this todo?</string>
+    <string name="delete_confirm_message">This action cannot be undone.</string>
+
+    <string name="error_network">No connection to the server. Check your network and try again.</string>
+    <string name="error_unauthorized">Your session has expired. Please sign in again.</string>
+    <string name="error_invalid_credentials">Invalid email or password.</string>
+    <string name="error_google_failed">Google sign-in failed. Please try again.</string>
+    <string name="error_not_found">This todo no longer exists.</string>
+    <string name="error_conflict">This item already exists.</string>
+    <string name="error_email_taken">An account with this email already exists.</string>
+    <string name="error_too_many_requests">Too many attempts. Please wait a minute and try again.</string>
+    <string name="error_validation">Please check the entered data.</string>
+    <string name="error_unknown">Something went wrong. Please try again.</string>
+
+    <string name="validation_email_blank">Enter your email</string>
+    <string name="validation_email_invalid">Enter a valid email</string>
+    <string name="validation_password_blank">Enter your password</string>
+    <string name="validation_password_too_short">Password must be at least 8 characters</string>
+    <string name="validation_password_too_long">Password must be at most 128 characters</string>
+    <string name="validation_password_mismatch">Passwords do not match</string>
+    <string name="validation_title_blank">Enter a title</string>
+    <string name="validation_title_too_long">Title must be at most 200 characters</string>
+    <string name="validation_description_too_long">Description must be at most 2000 characters</string>
+</resources>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Same palette as the Compose Multiplatform client (core/ui/theme/Theme.kt). -->
+<resources>
+    <color name="brand_primary">#FF3F51B5</color>
+    <color name="brand_on_primary">#FFFFFFFF</color>
+    <color name="brand_primary_container">#FFDDE1FF</color>
+    <color name="brand_on_primary_container">#FF001257</color>
+    <color name="brand_secondary">#FF5B5D72</color>
+    <color name="brand_secondary_container">#FFE0E0F9</color>
+    <color name="brand_tertiary">#FF00897B</color>
+    <color name="brand_tertiary_container">#FFB2DFDB</color>
+    <color name="brand_on_tertiary_container">#FF00201C</color>
+</resources>

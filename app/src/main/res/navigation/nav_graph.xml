@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- The start destination is chosen in MainActivity from the current session. -->
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/loginFragment">
+
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.pelypets.todolist.feature.auth.login.LoginFragment"
+        android:label="@string/login_title"
+        tools:layout="@layout/fragment_login">
+        <action
+            android:id="@+id/action_login_to_register"
+            app:destination="@id/registerFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/registerFragment"
+        android:name="com.pelypets.todolist.feature.auth.register.RegisterFragment"
+        android:label="@string/register_title"
+        tools:layout="@layout/fragment_register" />
+
+    <fragment
+        android:id="@+id/todoListFragment"
+        android:name="com.pelypets.todolist.feature.todolist.TodoListFragment"
+        android:label="@string/todos_title"
+        tools:layout="@layout/fragment_todo_list">
+        <action
+            android:id="@+id/action_todoList_to_todoDetail"
+            app:destination="@id/todoDetailFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/todoDetailFragment"
+        android:name="com.pelypets.todolist.feature.tododetail.TodoDetailFragment"
+        tools:layout="@layout/fragment_todo_detail">
+        <!-- null opens the screen for a new todo. -->
+        <argument
+            android:name="todoId"
+            android:defaultValue="@null"
+            app:argType="string"
+            app:nullable="true" />
+    </fragment>
+
+    <action
+        android:id="@+id/action_global_login"
+        app:destination="@id/loginFragment"
+        app:popUpTo="@id/nav_graph"
+        app:popUpToInclusive="true" />
+
+    <action
+        android:id="@+id/action_global_todoList"
+        app:destination="@id/todoListFragment"
+        app:popUpTo="@id/nav_graph"
+        app:popUpToInclusive="true" />
+</navigation>
