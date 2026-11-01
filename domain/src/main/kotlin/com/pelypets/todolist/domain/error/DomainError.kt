@@ -11,6 +11,9 @@ sealed interface DomainError {
     /** The server throttled the client, e.g. after too many sign-in attempts. */
     data object TooManyRequests : DomainError
 
+    /** The server or the proxy in front of it is down, e.g. while it restarts or redeploys. */
+    data object ServerUnavailable : DomainError
+
     data class Validation(val errors: List<ValidationError> = emptyList(), val serverMessage: String? = null) : DomainError
 
     data class Unknown(val message: String? = null) : DomainError

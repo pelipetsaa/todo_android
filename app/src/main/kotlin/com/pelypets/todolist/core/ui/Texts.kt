@@ -15,6 +15,7 @@ val DomainError.messageRes: Int
         DomainError.NotFound -> R.string.error_not_found
         DomainError.Conflict -> R.string.error_conflict
         DomainError.TooManyRequests -> R.string.error_too_many_requests
+        DomainError.ServerUnavailable -> R.string.error_server_unavailable
         is DomainError.Validation -> R.string.error_validation
         is DomainError.Unknown -> R.string.error_unknown
     }

@@ -2,13 +2,16 @@ package com.pelypets.todolist.testing
 
 import com.pelypets.todolist.domain.DomainResult
 import com.pelypets.todolist.domain.error.DomainError
+import com.pelypets.todolist.domain.model.SessionState
 import com.pelypets.todolist.domain.model.TimeRange
 import com.pelypets.todolist.domain.model.Todo
 import com.pelypets.todolist.domain.model.TodoDraft
 import com.pelypets.todolist.domain.repository.AuthRepository
+import com.pelypets.todolist.domain.repository.SessionRepository
 import com.pelypets.todolist.domain.repository.TodoRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.test.TestDispatcher
 import kotlinx.coroutines.test.UnconfinedTestDispatcher
 import kotlinx.coroutines.test.resetMain
@@ -32,6 +35,14 @@ class FakeAuthRepository : AuthRepository {
     override suspend fun logout(): DomainResult<Unit> {
         loggedOut = true
         return DomainResult.Success(Unit)
+    }
+}
+
+class FakeSessionRepository(private val stored: SessionState) : SessionRepository {
+    override val session = MutableStateFlow(SessionState.UNKNOWN)
+
+    override suspend fun restore() {
+        if (session.value == SessionState.UNKNOWN) session.value = stored
     }
 }
 

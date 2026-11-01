@@ -53,6 +53,7 @@
     <string name="error_conflict">This item already exists.</string>
     <string name="error_email_taken">An account with this email already exists.</string>
     <string name="error_too_many_requests">Too many attempts. Please wait a minute and try again.</string>
+    <string name="error_server_unavailable">The server is unavailable right now. Please try again in a minute.</string>
     <string name="error_validation">Please check the entered data.</string>
     <string name="error_unknown">Something went wrong. Please try again.</string>
 

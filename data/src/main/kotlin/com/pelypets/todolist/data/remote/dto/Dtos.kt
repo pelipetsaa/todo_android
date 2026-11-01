@@ -39,6 +39,7 @@ data class TodoInputDto(
     val status: TodoStatusDto = TodoStatusDto.TODO,
 )
 
+/** The server also sends `createdAt` and `updatedAt`; the app does not use them, so they cannot break decoding. */
 @Serializable
 data class TodoDto(
     val id: String,
@@ -46,8 +47,6 @@ data class TodoDto(
     val description: String,
     @Serializable(with = InstantIsoSerializer::class) val dueAt: Instant,
     val status: TodoStatusDto,
-    @Serializable(with = InstantIsoSerializer::class) val createdAt: Instant,
-    @Serializable(with = InstantIsoSerializer::class) val updatedAt: Instant,
 )
 
 @Serializable

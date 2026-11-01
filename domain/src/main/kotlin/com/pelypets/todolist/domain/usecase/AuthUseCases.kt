@@ -40,3 +40,7 @@ class LogoutUseCase @Inject constructor(private val authRepository: AuthReposito
 class ObserveSessionUseCase @Inject constructor(private val sessionRepository: SessionRepository) {
     operator fun invoke(): StateFlow<SessionState> = sessionRepository.session
 }
+
+class RestoreSessionUseCase @Inject constructor(private val sessionRepository: SessionRepository) {
+    suspend operator fun invoke() = sessionRepository.restore()
+}

@@ -21,4 +21,9 @@ data class TimeRange(val from: Instant, val to: Instant) {
     operator fun contains(instant: Instant): Boolean = instant >= from && instant < to
 }
 
-enum class SessionState { LOGGED_IN, LOGGED_OUT }
+enum class SessionState {
+    /** The stored tokens have not been read yet. */
+    UNKNOWN,
+    LOGGED_IN,
+    LOGGED_OUT,
+}

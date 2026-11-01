@@ -2,6 +2,8 @@ package com.pelypets.todolist.data.remote.interceptor
 
 import okhttp3.Interceptor
 import okhttp3.Response
+import java.io.IOException
+import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 /**
@@ -20,15 +22,27 @@ class RetryInterceptor(private val baseDelayMillis: Long) : Interceptor {
         var attempt = 0
         while (response.code in TRANSIENT_STATUSES && attempt < MAX_RETRIES) {
             response.close()
-            Thread.sleep(baseDelayMillis shl attempt)
+            chain.backOff(baseDelayMillis shl attempt)
             attempt++
             response = chain.proceed(request)
         }
         return response
     }
 
+    /** Canceling a call does not interrupt this thread, so the wait checks for it in short steps. */
+    private fun Interceptor.Chain.backOff(delayMillis: Long) {
+        val deadline = System.nanoTime() + TimeUnit.MILLISECONDS.toNanos(delayMillis)
+        while (true) {
+            if (call().isCanceled()) throw IOException("Canceled")
+            val remainingMillis = TimeUnit.NANOSECONDS.toMillis(deadline - System.nanoTime())
+            if (remainingMillis <= 0) return
+            Thread.sleep(minOf(remainingMillis, CANCEL_CHECK_MILLIS))
+        }
+    }
+
     private companion object {
         const val MAX_RETRIES = 2
+        const val CANCEL_CHECK_MILLIS = 50L
         val TRANSIENT_STATUSES = setOf(502, 503, 504)
     }
 }

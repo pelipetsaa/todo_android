@@ -16,6 +16,9 @@ interface AuthRepository {
 
 interface SessionRepository {
     val session: StateFlow<SessionState>
+
+    /** Reads the stored session once; main-safe, the disk and Keystore work runs in the background. */
+    suspend fun restore()
 }
 
 interface TodoRepository {

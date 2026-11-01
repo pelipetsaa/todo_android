@@ -1,6 +1,7 @@
 package com.pelypets.todolist.data.remote
 
 import com.pelypets.todolist.data.remote.dto.ErrorResponseDto
+import com.pelypets.todolist.data.remote.interceptor.TokenRefreshUnavailableException
 import com.pelypets.todolist.domain.DomainResult
 import com.pelypets.todolist.domain.error.DomainError
 import kotlinx.coroutines.CancellationException
@@ -19,6 +20,8 @@ internal suspend inline fun <T> safeApiCall(crossinline block: suspend () -> T):
     throw e
 } catch (e: HttpException) {
     DomainResult.Failure(e.toDomainError())
+} catch (e: TokenRefreshUnavailableException) {
+    DomainResult.Failure(domainErrorFor(e.code, message = null))
 } catch (e: IOException) {
     DomainResult.Failure(DomainError.Network)
 } catch (e: Exception) {
@@ -29,12 +32,15 @@ internal fun HttpException.toDomainError(): DomainError {
     val message = runCatching {
         response()?.errorBody()?.string()?.let { DataJson.decodeFromString<ErrorResponseDto>(it).message }
     }.getOrNull()
-    return when (code()) {
-        400 -> DomainError.Validation(serverMessage = message)
-        401 -> DomainError.Unauthorized
-        404 -> DomainError.NotFound
-        409 -> DomainError.Conflict
-        429 -> DomainError.TooManyRequests
-        else -> DomainError.Unknown(message ?: "HTTP ${code()}")
-    }
+    return domainErrorFor(code(), message)
+}
+
+internal fun domainErrorFor(code: Int, message: String?): DomainError = when (code) {
+    400 -> DomainError.Validation(serverMessage = message)
+    401 -> DomainError.Unauthorized
+    404 -> DomainError.NotFound
+    409 -> DomainError.Conflict
+    429 -> DomainError.TooManyRequests
+    502, 503, 504 -> DomainError.ServerUnavailable
+    else -> DomainError.Unknown(message ?: "HTTP $code")
 }

@@ -53,6 +53,7 @@
     <string name="error_conflict">Такая запись уже существует.</string>
     <string name="error_email_taken">Аккаунт с этой эл. почтой уже существует.</string>
     <string name="error_too_many_requests">Слишком много попыток. Подождите минуту и попробуйте снова.</string>
+    <string name="error_server_unavailable">Сервер сейчас недоступен. Попробуйте через минуту.</string>
     <string name="error_validation">Проверьте введённые данные.</string>
     <string name="error_unknown">Что-то пошло не так. Попробуйте ещё раз.</string>
 

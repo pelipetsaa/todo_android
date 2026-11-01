@@ -12,6 +12,9 @@ import okhttp3.Route
 import java.io.IOException
 import javax.inject.Inject
 
+/** The refresh endpoint answered with [code] without rejecting the token, e.g. it throttled the client. */
+class TokenRefreshUnavailableException(val code: Int) : IOException("Token refresh failed with HTTP $code")
+
 /**
  * Called by OkHttp on a 401: rotates the refresh token once and repeats the request.
  * A rejected refresh token ends the session, which sends the user back to sign-in.
@@ -32,31 +35,35 @@ class TokenAuthenticator @Inject constructor(
             // A parallel request has already refreshed the tokens while this one was waiting.
             if (current.accessToken != failedToken) return request.withBearer(current.accessToken)
 
-            return when (val refreshed = refresh(current.refreshToken)) {
-                null -> null
-                else -> {
-                    session.start(refreshed)
-                    request.withBearer(refreshed.accessToken)
-                }
+            when (val refreshed = refresh(current)) {
+                null -> session.endIf(expected = current)
+                else -> if (session.replace(expected = current, new = refreshed)) return request.withBearer(refreshed.accessToken)
             }
+            // The session changed while the refresh was in flight: a logout fails the request, a new sign-in repeats it.
+            return session.currentTokens()?.let { request.withBearer(it.accessToken) }
         }
     }
 
-    private fun refresh(refreshToken: String): StoredTokens? = try {
-        val result = authApi.get().refresh(RefreshTokenDto(refreshToken)).execute()
-        val body = result.body()
-        when {
-            result.isSuccessful && body != null -> StoredTokens(body.accessToken, body.refreshToken)
-
-            result.code() in 400..499 -> {
-                session.end()
-                null
-            }
-
-            else -> null
+    /**
+     * Returns null when the refresh token is rejected. Throws [IOException] when the server cannot be reached
+     * or does not answer properly: the session is kept and the request fails, so it can be retried.
+     */
+    private fun refresh(current: StoredTokens): StoredTokens? {
+        val result = try {
+            authApi.get().refresh(RefreshTokenDto(current.refreshToken)).execute()
+        } catch (e: RuntimeException) {
+            // E.g. a body that is not JSON. Anything but an IOException escapes on OkHttp's thread and crashes the app.
+            throw IOException("Malformed token refresh response", e)
         }
-    } catch (e: IOException) {
-        // Offline: keep the session, the request fails with a network error and can be retried.
-        null
+        val body = result.body()
+        return when {
+            result.isSuccessful && body != null -> StoredTokens(body.accessToken, body.refreshToken)
+            result.code() in REJECTED_STATUSES -> null
+            else -> throw TokenRefreshUnavailableException(result.code())
+        }
+    }
+
+    private companion object {
+        val REJECTED_STATUSES = setOf(400, 401)
     }
 }

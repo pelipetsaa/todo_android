@@ -30,7 +30,7 @@ interface TokenStorage {
 class KeystoreTokenStorage @Inject constructor(@ApplicationContext context: Context) : TokenStorage {
 
     private val prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
-    private val keyStore = KeyStore.getInstance(ANDROID_KEYSTORE).apply { load(null) }
+    private val keyStore by lazy { KeyStore.getInstance(ANDROID_KEYSTORE).apply { load(null) } }
 
     override fun read(): StoredTokens? {
         val access = prefs.getString(KEY_ACCESS, null) ?: return null
